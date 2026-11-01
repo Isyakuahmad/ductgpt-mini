@@ -1,0 +1,13 @@
+material_id,formula,bulk_modulus_GPa,shear_modulus_GPa,pugh_ratio,data_source
+fixture-01,WTa,260,130,0.500,illustrative fixture only
+fixture-02,WCr,240,150,0.625,illustrative fixture only
+fixture-03,WRe,300,165,0.550,illustrative fixture only
+fixture-04,WTa2,255,135,0.529,illustrative fixture only
+fixture-05,WCr2,245,140,0.571,illustrative fixture only
+fixture-06,WMo,275,145,0.527,illustrative fixture only
+fixture-07,WNb,250,145,0.580,illustrative fixture only
+fixture-08,WTi,265,125,0.472,illustrative fixture only
+fixture-09,WV,230,135,0.587,illustrative fixture only
+fixture-10,WZr,220,120,0.545,illustrative fixture only
+fixture-11,W2Ta,270,140,0.519,illustrative fixture only
+fixture-12,W2Cr,250,155,0.620,illustrative fixture only
