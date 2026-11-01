@@ -40,4 +40,4 @@ def test_combined_filters():
         min_bulk_modulus=255,
         elements=["Ta"],
     )
-    assert result["formula"].tolist() == ["WTa", "W2Ta"]
+    assert result["formula"].tolist() == ["WTa", "W2Ta", "WTa2"]
