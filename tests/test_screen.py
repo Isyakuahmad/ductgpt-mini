@@ -1,9 +1,43 @@
+from pathlib import Path
+
 import pandas as pd
+
 from src.screen import screen_alloys
 
-def fixture():
-    return pd.DataFrame([{"formula":"WTa","bulk_modulus_GPa":260,"shear_modulus_GPa":130,"pugh_ratio":.5},{"formula":"WCr","bulk_modulus_GPa":240,"shear_modulus_GPa":150,"pugh_ratio":.625},{"formula":"WRe","bulk_modulus_GPa":300,"shear_modulus_GPa":165,"pugh_ratio":.55}])
+
+DATA_FILE = Path(__file__).resolve().parents[1] / "data" / "sample_W_alloys.csv"
+
+
+def load_sample():
+    """Load the committed local fixture; tests never require an API key."""
+    return pd.read_csv(DATA_FILE)
+
+
+def test_sample_dataset_is_available():
+    df = load_sample()
+    assert not df.empty
+    assert {"formula", "bulk_modulus_GPa", "shear_modulus_GPa", "pugh_ratio"} <= set(df.columns)
+
+
 def test_thresholds_and_sorting():
-    assert screen_alloys(fixture(),max_pugh=.57,min_bulk_modulus=250).formula.tolist()==["WTa","WRe"]
+    result = screen_alloys(
+        load_sample(),
+        max_pugh=0.57,
+        min_bulk_modulus=250,
+    )
+    assert result["formula"].tolist() == ["WTi", "WTa", "W2Ta", "WMo", "WTa2", "WRe"]
+
+
 def test_element_filter():
-    assert screen_alloys(fixture(),elements=["Ta"]).formula.tolist()==["WTa"]
+    result = screen_alloys(load_sample(), elements=["Ta"])
+    assert result["formula"].tolist() == ["WTa", "W2Ta", "WTa2"]
+
+
+def test_combined_filters():
+    result = screen_alloys(
+        load_sample(),
+        max_pugh=0.53,
+        min_bulk_modulus=255,
+        elements=["Ta"],
+    )
+    assert result["formula"].tolist() == ["WTa", "W2Ta"]
