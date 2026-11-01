@@ -108,6 +108,7 @@ def main() -> int:
         print('Usage: python src/llm_agent.py "Find ductile W alloys with Ta"', file=sys.stderr)
         return 2
 
+    load_dotenv(ROOT / ".env")
     query = " ".join(sys.argv[1:]).strip()
     data_path = Path(os.getenv("ALLOY_DATA_PATH", str(DEFAULT_DATA))).expanduser()
     if not data_path.is_absolute():
@@ -191,7 +192,8 @@ def main() -> int:
                     "content": json.dumps(output, default=str),
                 })
 
-        raise RuntimeError("The model exceeded the maximum number of tool-calling rounds.")
+        print("Error: the model reached the maximum number of tool-calling rounds.", file=sys.stderr)
+        return 1
     except Exception as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
