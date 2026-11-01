@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.env
+.venv/
+.ipynb_checkpoints/
+.pytest_cache/
+.coverage
+models/
+data/*.csv
+!data/sample_W_alloys.csv
+results/*.csv
+!results/.gitkeep
+.DS_Store
